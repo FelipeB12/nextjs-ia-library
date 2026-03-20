@@ -1,0 +1,473 @@
+# Mini Library Management System — Development Tracker
+
+> **Project**: Full-stack library platform with AI features
+> **Stack**: Next.js 14 · TypeScript · PostgreSQL · Prisma · NextAuth · Tailwind · shadcn/ui · Vercel AI SDK
+> **Started**: 2026-03-20
+> **Target**: 25 atomic commits across 7 phases
+
+---
+
+## Quick Status
+
+| Phase | Name | Commits | Status |
+|-------|------|---------|--------|
+| 1 | Foundation | 1–4 | 🔄 In Progress |
+| 2 | Authentication | 5–7 | ⬜ Pending |
+| 3 | Core UI & Books | 8–11 | ⬜ Pending |
+| 4 | Cart & Ordering | 12–15 | ⬜ Pending |
+| 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
+| 6 | AI Features | 18–21 | ⬜ Pending |
+| 7 | Polish & Deploy | 22–25 | ⬜ Pending |
+
+**Legend**: ⬜ Pending · 🔄 In Progress · ✅ Done · ❌ Blocked
+
+---
+
+## Phase 1 — Foundation (Commits 1–4)
+
+### Commit 1 — `chore: initialize Next.js project with TypeScript and Tailwind`
+**Status**: ✅ Done
+
+**Tasks**:
+1. [x] `npx create-next-app@latest` with TypeScript, Tailwind, App Router
+2. [x] Configure `tsconfig.json` path aliases (`@/` → `src/`)
+3. [x] Create `.env.example` with all required variables documented
+4. [x] Update `.gitignore` (node_modules, .env.local, .next)
+5. [x] Create `README.md` skeleton with project description
+
+**Files changed**: `package.json`, `tsconfig.json`, `.env.example`, `.gitignore`, `README.md`, `next.config.js`, `tailwind.config.ts`
+
+---
+
+### Commit 2 — `infra: add Docker Compose for PostgreSQL development database`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `docker-compose.yml` with PostgreSQL 15 + healthcheck
+2. [ ] Update `.env.example` with `DATABASE_URL`
+3. [ ] Add README section: "Local Setup with Docker"
+
+**Files changed**: `docker-compose.yml`, `.env.example`, `README.md`
+
+**Verify**: `docker-compose up -d` starts a healthy postgres container on port 5432
+
+---
+
+### Commit 3 — `feat(db): define Prisma schema with User, Book, Order models`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Install Prisma: `npm install prisma @prisma/client`
+2. [ ] Create `prisma/schema.prisma` with full schema (User, Book, Order, Account, Session)
+3. [ ] Create `src/lib/prisma.ts` singleton client
+4. [ ] Run `npx prisma migrate dev --name init`
+5. [ ] Add README section: "Database Schema"
+
+**Key schema decisions**:
+- `copiesAvailable` decremented on APPROVED (not PENDING)
+- `dueDate` = `approvedAt + 30 days`
+- Indexes on `title`, `author`, `genre`, `status`
+
+**Files changed**: `prisma/schema.prisma`, `prisma/migrations/`, `src/lib/prisma.ts`, `package.json`, `README.md`
+
+---
+
+### Commit 4 — `feat(db): add seed file with 100 books and default accounts`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `prisma/seed.ts` with:
+  - Admin account: `admin@library.com` / `Admin123!` (bcrypt hashed)
+  - Test user: `user@test.com` / `User123!` (bcrypt hashed)
+  - 100 diverse books across genres (sci-fi, romance, history, mystery, fantasy, etc.)
+2. [ ] Add `prisma.seed` to `package.json`
+3. [ ] Install `bcryptjs` + `@types/bcryptjs`
+
+**Verify**: `npx prisma db seed` runs without errors, data visible in DB
+
+**Files changed**: `prisma/seed.ts`, `package.json`
+
+---
+
+## Phase 2 — Authentication (Commits 5–7)
+
+### Commit 5 — `feat(auth): configure NextAuth with Credentials provider`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Install `next-auth@beta` (v5 / Auth.js)
+2. [ ] Create `src/lib/auth.ts` with credentials provider + bcrypt compare
+3. [ ] Create `src/app/api/auth/[...nextauth]/route.ts`
+4. [ ] Session callback includes `user.role` (ADMIN/CUSTOMER)
+5. [ ] Update `.env.example` with `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
+
+**Files changed**: `src/lib/auth.ts`, `src/app/api/auth/[...nextauth]/route.ts`, `package.json`, `.env.example`
+
+---
+
+### Commit 6 — `feat(auth): add Google OAuth provider for SSO bonus`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Add Google provider to NextAuth config
+2. [ ] Update `.env.example` with `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+3. [ ] Handle first-time Google login → create CUSTOMER user in DB
+4. [ ] Update README: "SSO Setup (Optional)" section
+
+**Files changed**: `src/lib/auth.ts`, `.env.example`, `README.md`
+
+---
+
+### Commit 7 — `feat(auth): add login/register pages and route protection middleware`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/(auth)/login/page.tsx`
+2. [ ] Create `src/app/(auth)/register/page.tsx`
+3. [ ] Create `src/app/api/auth/register/route.ts` (POST, creates CUSTOMER user)
+4. [ ] Create `middleware.ts` — protect `/admin` (ADMIN only) and `/dashboard` (logged in)
+5. [ ] Create `src/components/auth/LoginForm.tsx`
+6. [ ] Create `src/components/auth/RegisterForm.tsx`
+
+**Files changed**: multiple pages, middleware, auth components
+
+---
+
+## Phase 3 — Core UI & Books (Commits 8–11)
+
+### Commit 8 — `feat(ui): install shadcn/ui and build shared layout components`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Install and configure shadcn/ui (`npx shadcn@latest init`)
+2. [ ] Add shadcn components: button, input, table, dialog, badge, card, toast, skeleton
+3. [ ] Create `src/components/layout/Navbar.tsx` (links, auth status, cart icon)
+4. [ ] Create `src/components/layout/Footer.tsx`
+5. [ ] Update `src/app/layout.tsx` with providers (SessionProvider, CartProvider)
+
+**Files changed**: `components.json`, `src/app/layout.tsx`, navbar, footer, shadcn ui components
+
+---
+
+### Commit 9 — `feat(books): build landing page with book grid and hero section`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/page.tsx` — hero banner + featured books grid
+2. [ ] Create `src/components/books/BookCard.tsx` (cover, title, author, genre badge, availability)
+3. [ ] Create `src/components/books/BookGrid.tsx` (responsive grid)
+4. [ ] Create `GET /api/books` route (paginated, returns all books)
+
+**Files changed**: `src/app/page.tsx`, book components, `src/app/api/books/route.ts`
+
+---
+
+### Commit 10 — `feat(books): implement standard search (title, author, genre)`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/components/books/BookSearch.tsx` (debounced input with filters)
+2. [ ] Update `GET /api/books` to accept `?q=`, `?genre=`, `?author=` query params
+3. [ ] Prisma query: `OR: [{title: {contains, mode: 'insensitive'}}, {author: ...}, {genre: ...}]`
+4. [ ] Search results update book grid dynamically (client-side state)
+
+**Files changed**: `BookSearch.tsx`, `src/app/api/books/route.ts`, `src/app/page.tsx`
+
+---
+
+### Commit 11 — `feat(books): add book detail page`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/books/[id]/page.tsx`
+2. [ ] Display: title, author, summary, genre, published date, ISBN
+3. [ ] Availability indicator: "X of 3 copies available"
+4. [ ] "Add to Borrow Cart" button
+5. [ ] Create `GET /api/books/[id]` route
+
+**Files changed**: `src/app/books/[id]/page.tsx`, `src/app/api/books/[id]/route.ts`
+
+---
+
+## Phase 4 — Cart & Ordering (Commits 12–15)
+
+### Commit 12 — `feat(cart): implement borrow cart with React Context`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/components/cart/CartProvider.tsx` (add, remove, clear, count)
+2. [ ] Persist cart in `localStorage`
+3. [ ] Cart icon in Navbar with badge count
+4. [ ] Create `src/hooks/useCart.ts`
+
+**Files changed**: `CartProvider.tsx`, `useCart.ts`, `Navbar.tsx`
+
+---
+
+### Commit 13 — `feat(cart): build cart page with checkout flow`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/cart/page.tsx`
+2. [ ] Create `src/components/cart/CartItem.tsx`
+3. [ ] Create `src/components/cart/CartSummary.tsx`
+4. [ ] Checkout flow: unauthenticated → redirect to login
+5. [ ] Create `POST /api/orders` (creates PENDING orders, validates `copiesAvailable > 0`)
+6. [ ] Clear cart after successful checkout
+
+**Files changed**: `src/app/cart/page.tsx`, cart components, `src/app/api/orders/route.ts`
+
+---
+
+### Commit 14 — `feat(orders): customer dashboard showing borrowed books`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/dashboard/page.tsx`
+2. [ ] Create `src/components/orders/UserOrderList.tsx`
+3. [ ] Display: book title, status badge (color-coded), order date, due date
+4. [ ] Filter by status tabs (All, Pending, Approved, Returned)
+
+**Files changed**: `src/app/dashboard/page.tsx`, `UserOrderList.tsx`
+
+---
+
+### Commit 15 — `feat(admin): build order management page (approve/return)`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/admin/page.tsx` (stats overview: total books, active borrows, pending requests)
+2. [ ] Create `src/app/admin/layout.tsx` (sidebar navigation)
+3. [ ] Create `src/app/admin/orders/page.tsx`
+4. [ ] Create `src/components/orders/OrderTable.tsx`
+5. [ ] Create `PATCH /api/orders/[id]` with three actions:
+  - `APPROVE`: status → APPROVED, set `approvedAt` + `dueDate`, decrement `copiesAvailable` (Prisma transaction)
+  - `RETURN`: status → RETURNED, set `returnedAt`, increment `copiesAvailable`
+  - `REJECT`: status → REJECTED
+
+**Files changed**: admin layout/pages, `OrderTable.tsx`, `src/app/api/orders/[id]/route.ts`
+
+---
+
+## Phase 5 — Admin Book CRUD (Commits 16–17)
+
+### Commit 16 — `feat(admin): build book management table with filters`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/app/admin/books/page.tsx`
+2. [ ] Table columns: title, author, genre, total copies, available copies
+3. [ ] Filters: title search, genre filter, in-stock toggle
+4. [ ] Sortable columns (title A-Z, author A-Z, availability)
+
+**Files changed**: `src/app/admin/books/page.tsx`
+
+---
+
+### Commit 17 — `feat(admin): add/edit/delete books (full CRUD)`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/components/books/BookForm.tsx` (shared create/edit form)
+2. [ ] Add book: dialog with form → `POST /api/books`
+3. [ ] Edit book: pre-filled dialog → `PUT /api/books/[id]`
+4. [ ] Delete book: confirmation dialog → `DELETE /api/books/[id]`
+5. [ ] Create `PUT /api/books/[id]` and `DELETE /api/books/[id]` routes (admin only)
+
+**Files changed**: `BookForm.tsx`, `src/app/api/books/[id]/route.ts`, `src/app/admin/books/page.tsx`
+
+---
+
+## Phase 6 — AI Features (Commits 18–21)
+
+### Commit 18 — `feat(ai): add API key input in navbar for testing AI features`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `src/components/ai/ApiKeyInput.tsx` (input + save button in top bar)
+2. [ ] Create `src/hooks/useApiKey.ts` (stores key in `sessionStorage`)
+3. [ ] Visual indicator: green dot when key is set ("AI Ready")
+4. [ ] All AI endpoints read key from `X-API-Key` header
+
+**Files changed**: `ApiKeyInput.tsx`, `useApiKey.ts`, `Navbar.tsx`
+
+---
+
+### Commit 19 — `feat(ai): implement natural language book search`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `POST /api/ai/search` — send compact catalog + user query to LLM, return matching book IDs
+2. [ ] System prompt: return JSON array of IDs ordered by relevance (max 10)
+3. [ ] Create `src/lib/ai.ts` — build OpenAI client from user-provided key
+4. [ ] Update `BookSearch.tsx` — toggle between "Standard Search" and "AI Search"
+5. [ ] Graceful fallback if no API key
+
+**System prompt strategy**: Send only `{id, title, author, genre, summary}` — ~400 tokens for 100 books
+
+**Files changed**: `src/app/api/ai/search/route.ts`, `src/lib/ai.ts`, `BookSearch.tsx`
+
+---
+
+### Commit 20 — `feat(ai): build chatbot drawer for book discovery`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Install `ai` (Vercel AI SDK): `npm install ai`
+2. [ ] Create `POST /api/ai/chat` — streaming endpoint with system prompt containing full catalog context
+3. [ ] Create `src/components/ai/ChatBot.tsx` — message list + input using `useChat` hook
+4. [ ] Create `src/components/layout/ChatDrawer.tsx` — slide-out panel from navbar
+5. [ ] Add chat toggle button to Navbar
+
+**Files changed**: `ChatBot.tsx`, `ChatDrawer.tsx`, `src/app/api/ai/chat/route.ts`, `Navbar.tsx`
+
+---
+
+### Commit 21 — `feat(ai): add post-checkout book recommendations`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Create `POST /api/ai/recommend` — hybrid DB + LLM ranking
+  - Extract genres/authors from ordered books
+  - DB query: same genre/author, in stock, not already borrowed by user
+  - If API key: LLM ranks top 3 from candidates
+  - If no key: score by genre match (2pts) + author match (1pt), top 3
+2. [ ] Create `src/components/ai/Recommendations.tsx` — card after successful checkout
+3. [ ] Show recommendations modal in cart page after checkout success
+
+**Files changed**: `src/app/api/ai/recommend/route.ts`, `Recommendations.tsx`, `src/app/cart/page.tsx`
+
+---
+
+## Phase 7 — Polish & Deploy (Commits 22–25)
+
+### Commit 22 — `style: polish UI — responsive design, loading states, error handling`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Loading skeletons for book grid and tables
+2. [ ] Error boundaries and user-friendly error messages
+3. [ ] Toast notifications (order placed, book added, copy action confirmations)
+4. [ ] Mobile-responsive navigation (hamburger menu)
+5. [ ] Empty states (no search results, empty cart, no orders)
+6. [ ] Overdue badge: highlight orders where `dueDate < now`
+
+**Files changed**: multiple components + pages
+
+---
+
+### Commit 23 — `docs: write comprehensive README with setup instructions`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Project overview + live demo link placeholder
+2. [ ] Tech stack table with justification for each choice
+3. [ ] Local setup: copy-pasteable commands (Docker → Migrate → Seed → Dev)
+4. [ ] Test accounts: admin + customer credentials
+5. [ ] AI features: where to paste API key, what to test
+6. [ ] Architecture diagram (text-based)
+7. [ ] Screenshots of key pages
+
+**Files changed**: `README.md`
+
+---
+
+### Commit 24 — `deploy: configure Vercel deployment with production database`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Set up Vercel Postgres or Supabase as production DB
+2. [ ] Configure environment variables in Vercel dashboard
+3. [ ] Add `prisma generate` to build command
+4. [ ] Seed production database
+5. [ ] Verify live URL end-to-end
+6. [ ] Add live URL to README
+
+**Checklist**:
+1. [ ] `DATABASE_URL` → production DB
+2. [ ] `NEXTAUTH_SECRET` → random 32-char string
+3. [ ] `NEXTAUTH_URL` → Vercel URL
+4. [ ] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
+
+---
+
+### Commit 25 — `chore: final code review — add comments, clean up, verify all features`
+**Status**: ⬜ Pending
+
+**Tasks**:
+1. [ ] Audit all files for JSDoc comments on every function
+2. [ ] Remove `console.log`, unused imports
+3. [ ] Verify all CRUD operations
+4. [ ] Verify all AI features with test API key
+5. [ ] Final tag: `release: v1.0.0 — Mini Library Management System`
+
+---
+
+## Environment Variables Reference
+
+```bash
+# .env.local (local dev) / Vercel dashboard (production)
+
+# Database
+DATABASE_URL="postgresql://admin:password@localhost:5432/library_db"
+
+# NextAuth
+NEXTAUTH_SECRET="your-random-32-char-secret"
+NEXTAUTH_URL="http://localhost:3000"  # or Vercel URL in production
+
+# Google OAuth (optional — SSO bonus)
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
+
+---
+
+## Key Architectural Decisions
+
+| Decision | Choice | Reason |
+|----------|--------|--------|
+| Cart state | React Context + localStorage | No server round-trip for cart, persists on refresh |
+| AI key storage | sessionStorage | Cleared on tab close — no accidental key leakage |
+| Order approval | Prisma transaction | Atomic: status update + stock decrement can't race |
+| AI fallback | DB-only recommendations | All features work without an API key |
+| `copiesAvailable` timing | Decrement on APPROVE | PENDING doesn't lock stock — reduces false unavailability |
+| Auth session | JWT strategy | Stateless, no extra DB lookups on every request |
+
+---
+
+## Edge Cases Handled
+
+- Cannot borrow a book with `copiesAvailable === 0`
+- Cannot check out without being logged in
+- Admin cannot approve an already-approved order
+- Admin cannot approve if book stock has since dropped to 0 (race condition handled by transaction)
+- Returning a book increments `copiesAvailable` back
+- NLP search gracefully falls back to empty results (not error) when no API key
+
+---
+
+## Quick Commands
+
+```bash
+# Start development
+docker-compose up -d
+npx prisma migrate dev
+npx prisma db seed
+npm run dev
+
+# Reset database
+npx prisma migrate reset
+
+# Full setup one-liner
+docker-compose up -d && npx prisma migrate deploy && npx prisma db seed && npm run dev
+
+# Generate Prisma client after schema changes
+npx prisma generate
+
+# Open Prisma Studio (DB browser)
+npx prisma studio
+```
+
+---
+
+*Last updated: 2026-03-20 — Phase 1 starting*
