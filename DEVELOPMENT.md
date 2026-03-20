@@ -40,12 +40,12 @@
 ---
 
 ### Commit 2 — `infra: add Docker Compose for PostgreSQL development database`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `docker-compose.yml` with PostgreSQL 15 + healthcheck
-2. [ ] Update `.env.example` with `DATABASE_URL`
-3. [ ] Add README section: "Local Setup with Docker"
+1. [x] Create `docker-compose.yml` with PostgreSQL 15 + healthcheck
+2. [x] Update `.env.example` with `DATABASE_URL`
+3. [x] Add README section: "Local Setup with Docker"
 
 **Files changed**: `docker-compose.yml`, `.env.example`, `README.md`
 

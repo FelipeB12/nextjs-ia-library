@@ -25,12 +25,12 @@ A full-stack library platform with AI-powered book discovery, built with Next.js
 - Admin panel: approve/return orders, manage book inventory
 - Post-checkout AI book recommendations
 
-## Local Setup
+## Local Setup with Docker
 
 ### Prerequisites
 
 - Node.js 18+
-- Docker (for local PostgreSQL)
+- Docker and Docker Compose
 
 ### Steps
 
@@ -40,12 +40,12 @@ npm install
 
 # 2. Copy environment variables
 cp .env.example .env.local
-# Edit .env.local with your values
+# Edit .env.local if needed (defaults match docker-compose.yml)
 
-# 3. Start PostgreSQL
+# 3. Start PostgreSQL (runs on port 5432)
 docker-compose up -d
 
-# 4. Run migrations and seed database
+# 4. Wait for healthy status, then run migrations and seed
 npx prisma migrate dev
 npx prisma db seed
 
@@ -54,6 +54,16 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+### Docker details
+
+The `docker-compose.yml` runs PostgreSQL 15 with:
+- **User**: `admin` / **Password**: `password` / **DB**: `library_db`
+- Healthcheck via `pg_isready` (retries every 10s)
+- Persistent volume `postgres_data` so data survives container restarts
+
+To stop and remove containers: `docker-compose down`
+To wipe data entirely: `docker-compose down -v`
 
 ## Test Accounts
 
