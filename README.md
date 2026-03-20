@@ -65,6 +65,21 @@ The `docker-compose.yml` runs PostgreSQL 15 with:
 To stop and remove containers: `docker-compose down`
 To wipe data entirely: `docker-compose down -v`
 
+## Database Schema
+
+| Model | Key Fields |
+|-------|-----------|
+| `User` | `id`, `email`, `password`, `role` (ADMIN/CUSTOMER) |
+| `Book` | `id`, `title`, `author`, `genre`, `totalCopies`, `copiesAvailable` |
+| `Order` | `id`, `userId`, `bookId`, `status` (PENDING/APPROVED/RETURNED/REJECTED), `approvedAt`, `dueDate`, `returnedAt` |
+| `Account` | NextAuth OAuth accounts |
+| `Session` | NextAuth sessions |
+
+**Key decisions:**
+- `copiesAvailable` is decremented on APPROVE (not on PENDING) — reduces false unavailability
+- `dueDate` = `approvedAt + 30 days`
+- Indexes on `title`, `author`, `genre`, `status` for fast search/filter
+
 ## Test Accounts
 
 | Role | Email | Password |

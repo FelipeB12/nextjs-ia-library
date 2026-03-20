@@ -54,14 +54,14 @@
 ---
 
 ### Commit 3 — `feat(db): define Prisma schema with User, Book, Order models`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Install Prisma: `npm install prisma @prisma/client`
-2. [ ] Create `prisma/schema.prisma` with full schema (User, Book, Order, Account, Session)
-3. [ ] Create `src/lib/prisma.ts` singleton client
-4. [ ] Run `npx prisma migrate dev --name init`
-5. [ ] Add README section: "Database Schema"
+1. [x] Install Prisma: `npm install prisma @prisma/client`
+2. [x] Create `prisma/schema.prisma` with full schema (User, Book, Order, Account, Session)
+3. [x] Create `src/lib/prisma.ts` singleton client
+4. [x] Run `npx prisma migrate dev --name init`
+5. [x] Add README section: "Database Schema"
 
 **Key schema decisions**:
 - `copiesAvailable` decremented on APPROVED (not PENDING)
