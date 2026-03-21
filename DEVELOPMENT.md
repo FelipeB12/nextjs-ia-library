@@ -14,7 +14,7 @@
 | 1 | Foundation | 1–4 | ✅ Done |
 | 2 | Authentication | 5–7 | ✅ Done |
 | 3 | Core UI & Books | 8–11 | ✅ Done |
-| 4 | Cart & Ordering | 12–15 | 🔄 In Progress |
+| 4 | Cart & Ordering | 12–15 | ✅ Done |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
 | 6 | AI Features | 18–21 | ⬜ Pending |
 | 7 | Polish & Deploy | 22–25 | ⬜ Pending |
@@ -233,14 +233,14 @@
 ---
 
 ### Commit 15 — `feat(admin): build order management page (approve/return)`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/admin/page.tsx` (stats overview: total books, active borrows, pending requests)
-2. [ ] Create `src/app/admin/layout.tsx` (sidebar navigation)
-3. [ ] Create `src/app/admin/orders/page.tsx`
-4. [ ] Create `src/components/orders/OrderTable.tsx`
-5. [ ] Create `PATCH /api/orders/[id]` with three actions:
+1. [x] Create `src/app/admin/page.tsx` (stats overview: total books, active borrows, pending requests)
+2. [x] Create `src/app/admin/layout.tsx` (sidebar navigation)
+3. [x] Create `src/app/admin/orders/page.tsx`
+4. [x] Create `src/components/orders/OrderTable.tsx`
+5. [x] Create `PATCH /api/orders/[id]` with three actions:
   - `APPROVE`: status → APPROVED, set `approvedAt` + `dueDate`, decrement `copiesAvailable` (Prisma transaction)
   - `RETURN`: status → RETURNED, set `returnedAt`, increment `copiesAvailable`
   - `REJECT`: status → REJECTED
