@@ -357,16 +357,16 @@
 ---
 
 ### Commit 23 — `docs: write comprehensive README with setup instructions`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Project overview + live demo link placeholder
-2. [ ] Tech stack table with justification for each choice
-3. [ ] Local setup: copy-pasteable commands (Docker → Migrate → Seed → Dev)
-4. [ ] Test accounts: admin + customer credentials
-5. [ ] AI features: where to paste API key, what to test
-6. [ ] Architecture diagram (text-based)
-7. [ ] Screenshots of key pages
+1. [x] Project overview + live demo link placeholder
+2. [x] Tech stack table with justification for each choice
+3. [x] Local setup: copy-pasteable commands (Docker → Migrate → Seed → Dev)
+4. [x] Test accounts: admin + customer credentials
+5. [x] AI features: where to paste API key, what to test
+6. [x] Architecture diagram (text-based)
+7. [x] Screenshots of key pages
 
 **Files changed**: `README.md`
 
