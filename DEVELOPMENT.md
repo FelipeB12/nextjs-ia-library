@@ -163,13 +163,13 @@
 ---
 
 ### Commit 10 — `feat(books): implement standard search (title, author, genre)`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/components/books/BookSearch.tsx` (debounced input with filters)
-2. [ ] Update `GET /api/books` to accept `?q=`, `?genre=`, `?author=` query params
-3. [ ] Prisma query: `OR: [{title: {contains, mode: 'insensitive'}}, {author: ...}, {genre: ...}]`
-4. [ ] Search results update book grid dynamically (client-side state)
+1. [x] Create `src/components/books/BookSearch.tsx` (debounced input with filters)
+2. [x] Update `GET /api/books` to accept `?q=`, `?genre=`, `?author=` query params
+3. [x] Prisma query: `OR: [{title: {contains, mode: 'insensitive'}}, {author: ...}, {genre: ...}]`
+4. [x] Search results update book grid dynamically (client-side state)
 
 **Files changed**: `BookSearch.tsx`, `src/app/api/books/route.ts`, `src/app/page.tsx`
 

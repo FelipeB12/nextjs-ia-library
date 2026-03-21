@@ -1,31 +1,41 @@
 import { BookOpen, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import BookGrid from "@/components/books/BookGrid";
+import BookSearch from "@/components/books/BookSearch";
 import { Button } from "@/components/ui/button";
 
 /**
  * Landing page — Server Component.
- * Fetches the first 20 books directly from the database for the initial render.
- * Client-side search and filtering are added in Commit 10 (BookSearch component).
+ * Fetches the initial book list and genre list from the database,
+ * then hands them to the BookSearch Client Component which manages
+ * all subsequent search and filter interactions via /api/books.
  */
 export default async function HomePage() {
-  const books = await prisma.book.findMany({
-    orderBy: { title: "asc" },
-    take: 20,
-    select: {
-      id: true,
-      title: true,
-      author: true,
-      genre: true,
-      summary: true,
-      coverUrl: true,
-      totalCopies: true,
-      copiesAvailable: true,
-    },
-  });
+  const [books, totalBooks, genreRows] = await Promise.all([
+    prisma.book.findMany({
+      orderBy: { title: "asc" },
+      take: 20,
+      select: {
+        id: true,
+        title: true,
+        author: true,
+        genre: true,
+        summary: true,
+        coverUrl: true,
+        totalCopies: true,
+        copiesAvailable: true,
+      },
+    }),
+    prisma.book.count(),
+    // Fetch distinct genres for the filter dropdown
+    prisma.book.findMany({
+      select: { genre: true },
+      distinct: ["genre"],
+      orderBy: { genre: "asc" },
+    }),
+  ]);
 
-  const totalBooks = await prisma.book.count();
+  const genres = genreRows.map((r: { genre: string }) => r.genre);
 
   return (
     <div className="flex flex-col">
@@ -79,18 +89,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Book grid */}
+      {/* Search + Book grid */}
       <section id="books" className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">All Books</h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              Showing {books.length} of {totalBooks} books
-            </p>
-          </div>
-        </div>
-
-        <BookGrid books={books} />
+        <BookSearch
+          initialBooks={books}
+          totalBooks={totalBooks}
+          genres={genres}
+        />
       </section>
     </div>
   );
