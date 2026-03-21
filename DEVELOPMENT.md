@@ -13,7 +13,7 @@
 |-------|------|---------|--------|
 | 1 | Foundation | 1–4 | ✅ Done |
 | 2 | Authentication | 5–7 | ✅ Done |
-| 3 | Core UI & Books | 8–11 | 🔄 In Progress |
+| 3 | Core UI & Books | 8–11 | ✅ Done |
 | 4 | Cart & Ordering | 12–15 | ⬜ Pending |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
 | 6 | AI Features | 18–21 | ⬜ Pending |
@@ -176,14 +176,14 @@
 ---
 
 ### Commit 11 — `feat(books): add book detail page`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/books/[id]/page.tsx`
-2. [ ] Display: title, author, summary, genre, published date, ISBN
-3. [ ] Availability indicator: "X of 3 copies available"
-4. [ ] "Add to Borrow Cart" button
-5. [ ] Create `GET /api/books/[id]` route
+1. [x] Create `src/app/books/[id]/page.tsx`
+2. [x] Display: title, author, summary, genre, published date, ISBN
+3. [x] Availability indicator: "X of 3 copies available"
+4. [x] "Add to Borrow Cart" button
+5. [x] Create `GET /api/books/[id]` route
 
 **Files changed**: `src/app/books/[id]/page.tsx`, `src/app/api/books/[id]/route.ts`
 
