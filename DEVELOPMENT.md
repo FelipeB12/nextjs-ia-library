@@ -310,14 +310,14 @@
 ---
 
 ### Commit 20 — `feat(ai): build chatbot drawer for book discovery`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Install `ai` (Vercel AI SDK): `npm install ai`
-2. [ ] Create `POST /api/ai/chat` — streaming endpoint with system prompt containing full catalog context
-3. [ ] Create `src/components/ai/ChatBot.tsx` — message list + input using `useChat` hook
-4. [ ] Create `src/components/layout/ChatDrawer.tsx` — slide-out panel from navbar
-5. [ ] Add chat toggle button to Navbar
+1. [x] Install `ai` (Vercel AI SDK): `npm install ai`
+2. [x] Create `POST /api/ai/chat` — streaming endpoint with system prompt containing full catalog context
+3. [x] Create `src/components/ai/ChatBot.tsx` — message list + input using `useChat` hook
+4. [x] Create `src/components/layout/ChatDrawer.tsx` — slide-out panel from navbar
+5. [x] Add chat toggle button to Navbar
 
 **Files changed**: `ChatBot.tsx`, `ChatDrawer.tsx`, `src/app/api/ai/chat/route.ts`, `Navbar.tsx`
 

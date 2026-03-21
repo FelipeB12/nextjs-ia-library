@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { BookOpen, ShoppingCart, LogOut, LayoutDashboard, Settings } from "lucide-react";
+import { BookOpen, ShoppingCart, LogOut, LayoutDashboard, Settings, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import ApiKeyInput from "@/components/ai/ApiKeyInput";
+import ChatDrawer from "@/components/layout/ChatDrawer";
 
 /**
  * Top navigation bar.
@@ -15,6 +17,7 @@ export default function Navbar() {
   const { data: session, status } = useSession();
   const { count } = useCart();
   const isAdmin = session?.user?.role === "ADMIN";
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -45,6 +48,14 @@ export default function Navbar() {
         {/* Right side actions */}
         <div className="flex items-center gap-2">
           <ApiKeyInput />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setChatOpen(true)}
+            aria-label="Open book discovery chat"
+          >
+            <MessageCircle className="h-4 w-4" />
+          </Button>
           {/* Borrow cart with item count badge */}
           <Button variant="ghost" size="icon" asChild className="relative">
             <Link href="/cart" aria-label={`Borrow cart (${count} items)`}>
@@ -96,5 +107,7 @@ export default function Navbar() {
         </div>
       </div>
     </header>
+
+    <ChatDrawer open={chatOpen} onClose={() => setChatOpen(false)} />
   );
 }
