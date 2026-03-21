@@ -95,11 +95,11 @@
 **Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Install `next-auth@beta` (v5 / Auth.js)
-2. [ ] Create `src/lib/auth.ts` with credentials provider + bcrypt compare
-3. [ ] Create `src/app/api/auth/[...nextauth]/route.ts`
-4. [ ] Session callback includes `user.role` (ADMIN/CUSTOMER)
-5. [ ] Update `.env.example` with `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
+1. [x] Install `next-auth@beta` (v5 / Auth.js)
+2. [x] Create `src/lib/auth.ts` with credentials provider + bcrypt compare
+3. [x] Create `src/app/api/auth/[...nextauth]/route.ts`
+4. [x] Session callback includes `user.role` (ADMIN/CUSTOMER)
+5. [x] Update `.env.example` with `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
 
 **Files changed**: `src/lib/auth.ts`, `src/app/api/auth/[...nextauth]/route.ts`, `package.json`, `.env.example`
 
@@ -109,10 +109,10 @@
 **Status**: ⬜ Pending
 
 **Tasks**:
-1. [ ] Add Google provider to NextAuth config
-2. [ ] Update `.env.example` with `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
-3. [ ] Handle first-time Google login → create CUSTOMER user in DB
-4. [ ] Update README: "SSO Setup (Optional)" section
+1. [x] Add Google provider to NextAuth config
+2. [x] Update `.env.example` with `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+3. [x] Handle first-time Google login → create CUSTOMER user in DB
+4. [x] Update README: "SSO Setup (Optional)" section
 
 **Files changed**: `src/lib/auth.ts`, `.env.example`, `README.md`
 

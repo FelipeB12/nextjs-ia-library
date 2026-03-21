@@ -94,6 +94,24 @@ To wipe data entirely: `docker-compose down -v`
 3. Open the **Chat** drawer to discover books via conversation
 4. Complete a checkout to see AI-powered recommendations
 
+## SSO Setup (Optional)
+
+Google OAuth is pre-configured. To enable it:
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+2. Create an **OAuth 2.0 Client ID** (Web application type)
+3. Add authorised redirect URIs:
+   - Local: `http://localhost:3000/api/auth/callback/google`
+   - Production: `https://your-vercel-url.vercel.app/api/auth/callback/google`
+4. Copy the **Client ID** and **Client Secret** into `.env.local`:
+   ```bash
+   GOOGLE_CLIENT_ID="your-client-id"
+   GOOGLE_CLIENT_SECRET="your-client-secret"
+   ```
+5. Restart the dev server — the **Continue with Google** button on the login page will be active.
+
+First-time Google users are automatically created with the `CUSTOMER` role.
+
 ## Quick Commands
 
 ```bash
