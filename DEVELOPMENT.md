@@ -294,14 +294,14 @@
 ---
 
 ### Commit 19 — `feat(ai): implement natural language book search`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `POST /api/ai/search` — send compact catalog + user query to LLM, return matching book IDs
-2. [ ] System prompt: return JSON array of IDs ordered by relevance (max 10)
-3. [ ] Create `src/lib/ai.ts` — build OpenAI client from user-provided key
-4. [ ] Update `BookSearch.tsx` — toggle between "Standard Search" and "AI Search"
-5. [ ] Graceful fallback if no API key
+1. [x] Create `POST /api/ai/search` — send compact catalog + user query to LLM, return matching book IDs
+2. [x] System prompt: return JSON array of IDs ordered by relevance (max 10)
+3. [x] Create `src/lib/ai.ts` — build Anthropic client from user-provided key
+4. [x] Update `BookSearch.tsx` — toggle between "Standard Search" and "AI Search"
+5. [x] Graceful fallback if no API key
 
 **System prompt strategy**: Send only `{id, title, author, genre, summary}` — ~400 tokens for 100 books
 
