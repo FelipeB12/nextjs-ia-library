@@ -7,9 +7,8 @@ export const metadata = { title: "Book Management — Library Admin" };
 
 /**
  * Admin book management page — Server Component.
- * Fetches all books and distinct genres, passes them to the
- * BookManagementTable Client Component for filtering and sorting.
- * Add / Edit / Delete actions are wired in Commit 17.
+ * Fetches all books (including edit fields) and distinct genres, passes them to the
+ * BookManagementTable Client Component which handles all CRUD operations.
  */
 export default async function AdminBooksPage() {
   const session = await auth();
@@ -23,6 +22,10 @@ export default async function AdminBooksPage() {
         title: true,
         author: true,
         genre: true,
+        summary: true,
+        isbn: true,
+        coverUrl: true,
+        publishedDate: true,
         totalCopies: true,
         copiesAvailable: true,
       },

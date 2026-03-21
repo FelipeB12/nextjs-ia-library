@@ -249,7 +249,7 @@
 
 ---
 
-## Phase 5 — Admin Book CRUD (Commits 16–17)
+## Phase 5 — Admin Book CRUD (Commits 16–17) ✅ Done
 
 ### Commit 16 — `feat(admin): build book management table with filters`
 **Status**: ✅ Done
@@ -265,14 +265,14 @@
 ---
 
 ### Commit 17 — `feat(admin): add/edit/delete books (full CRUD)`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/components/books/BookForm.tsx` (shared create/edit form)
-2. [ ] Add book: dialog with form → `POST /api/books`
-3. [ ] Edit book: pre-filled dialog → `PUT /api/books/[id]`
-4. [ ] Delete book: confirmation dialog → `DELETE /api/books/[id]`
-5. [ ] Create `PUT /api/books/[id]` and `DELETE /api/books/[id]` routes (admin only)
+1. [x] Create `src/components/books/BookForm.tsx` (shared create/edit form)
+2. [x] Add book: dialog with form → `POST /api/books`
+3. [x] Edit book: pre-filled dialog → `PUT /api/books/[id]`
+4. [x] Delete book: confirmation dialog → `DELETE /api/books/[id]`
+5. [x] Create `PUT /api/books/[id]` and `DELETE /api/books/[id]` routes (admin only)
 
 **Files changed**: `BookForm.tsx`, `src/app/api/books/[id]/route.ts`, `src/app/admin/books/page.tsx`
 

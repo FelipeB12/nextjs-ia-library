@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 const PAGE_SIZE = 20;
@@ -52,6 +53,45 @@ export async function GET(req: NextRequest) {
     pageSize: PAGE_SIZE,
     totalPages: Math.ceil(total / PAGE_SIZE),
   });
+}
+
+/**
+ * POST /api/books
+ * Admin-only. Creates a new book.
+ * copiesAvailable is set equal to totalCopies on creation.
+ */
+export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user || session.user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  }
+
+  const body = await req.json().catch(() => null);
+
+  if (!body?.title || !body?.author || !body?.genre) {
+    return NextResponse.json(
+      { error: "title, author, and genre are required." },
+      { status: 400 }
+    );
+  }
+
+  const totalCopies = Number(body.totalCopies) || 1;
+
+  const book = await prisma.book.create({
+    data: {
+      title: body.title,
+      author: body.author,
+      genre: body.genre,
+      summary: body.summary ?? null,
+      isbn: body.isbn ?? null,
+      coverUrl: body.coverUrl ?? null,
+      publishedDate: body.publishedDate ? new Date(body.publishedDate) : null,
+      totalCopies,
+      copiesAvailable: totalCopies,
+    },
+  });
+
+  return NextResponse.json(book, { status: 201 });
 }
 
 /**
