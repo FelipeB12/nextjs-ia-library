@@ -220,13 +220,13 @@
 ---
 
 ### Commit 14 — `feat(orders): customer dashboard showing borrowed books`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/dashboard/page.tsx`
-2. [ ] Create `src/components/orders/UserOrderList.tsx`
-3. [ ] Display: book title, status badge (color-coded), order date, due date
-4. [ ] Filter by status tabs (All, Pending, Approved, Returned)
+1. [x] Create `src/app/dashboard/page.tsx`
+2. [x] Create `src/components/orders/UserOrderList.tsx`
+3. [x] Display: book title, status badge (color-coded), order date, due date
+4. [x] Filter by status tabs (All, Pending, Approved, Returned)
 
 **Files changed**: `src/app/dashboard/page.tsx`, `UserOrderList.tsx`
 
