@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { BookOpen, ShoppingCart, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
+import ApiKeyInput from "@/components/ai/ApiKeyInput";
 
 /**
  * Top navigation bar.
@@ -43,6 +44,7 @@ export default function Navbar() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-2">
+          <ApiKeyInput />
           {/* Borrow cart with item count badge */}
           <Button variant="ghost" size="icon" asChild className="relative">
             <Link href="/cart" aria-label={`Borrow cart (${count} items)`}>

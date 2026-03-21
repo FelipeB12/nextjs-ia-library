@@ -281,13 +281,13 @@
 ## Phase 6 — AI Features (Commits 18–21)
 
 ### Commit 18 — `feat(ai): add API key input in navbar for testing AI features`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/components/ai/ApiKeyInput.tsx` (input + save button in top bar)
-2. [ ] Create `src/hooks/useApiKey.ts` (stores key in `sessionStorage`)
-3. [ ] Visual indicator: green dot when key is set ("AI Ready")
-4. [ ] All AI endpoints read key from `X-API-Key` header
+1. [x] Create `src/components/ai/ApiKeyInput.tsx` (input + save button in top bar)
+2. [x] Create `src/hooks/useApiKey.ts` (stores key in `sessionStorage`)
+3. [x] Visual indicator: green dot when key is set ("AI Ready")
+4. [x] All AI endpoints read key from `X-API-Key` header
 
 **Files changed**: `ApiKeyInput.tsx`, `useApiKey.ts`, `Navbar.tsx`
 
