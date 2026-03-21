@@ -2,16 +2,17 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { BookOpen, ShoppingCart, User, LogOut, LayoutDashboard, Settings } from "lucide-react";
+import { BookOpen, ShoppingCart, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/useCart";
 
 /**
  * Top navigation bar.
- * Shows library logo, nav links, auth status, and a cart icon with item count.
- * Cart count is a placeholder (0) until CartProvider is wired in Commit 12.
+ * Shows library logo, nav links, auth status, and a cart icon with live item count badge.
  */
 export default function Navbar() {
   const { data: session, status } = useSession();
+  const { count } = useCart();
   const isAdmin = session?.user?.role === "ADMIN";
 
   return (
@@ -42,10 +43,15 @@ export default function Navbar() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-2">
-          {/* Borrow cart */}
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/cart" aria-label="Borrow cart">
+          {/* Borrow cart with item count badge */}
+          <Button variant="ghost" size="icon" asChild className="relative">
+            <Link href="/cart" aria-label={`Borrow cart (${count} items)`}>
               <ShoppingCart className="h-5 w-5" />
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                  {count > 9 ? "9+" : count}
+                </span>
+              )}
             </Link>
           </Button>
 

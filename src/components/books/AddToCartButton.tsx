@@ -1,34 +1,58 @@
 "use client";
 
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/useCart";
 
 interface AddToCartButtonProps {
   bookId: string;
   title: string;
+  author: string;
+  coverUrl?: string | null;
   available: boolean;
 }
 
 /**
  * "Add to Borrow Cart" button on the book detail page.
- * Disabled when the book has no copies available.
- *
- * Cart interaction (useCart hook) is wired in Commit 12 when CartProvider is added.
- * For now the button renders correctly with proper disabled state.
+ * Disabled when unavailable or already in the cart.
+ * Toggles to a "In Cart" state once added.
  */
-export default function AddToCartButton({ title, available }: AddToCartButtonProps) {
+export default function AddToCartButton({
+  bookId,
+  title,
+  author,
+  coverUrl,
+  available,
+}: AddToCartButtonProps) {
+  const { addToCart, inCart } = useCart();
+  const alreadyInCart = inCart(bookId);
+
+  function handleAdd() {
+    addToCart({ bookId, title, author, coverUrl });
+  }
+
+  if (!available) {
+    return (
+      <Button size="lg" disabled className="w-full sm:w-auto">
+        <ShoppingCart className="h-4 w-4" />
+        Unavailable
+      </Button>
+    );
+  }
+
+  if (alreadyInCart) {
+    return (
+      <Button size="lg" variant="secondary" disabled className="w-full sm:w-auto">
+        <Check className="h-4 w-4" />
+        In Borrow Cart
+      </Button>
+    );
+  }
+
   return (
-    <Button
-      size="lg"
-      disabled={!available}
-      className="w-full sm:w-auto"
-      onClick={() => {
-        // Wired to useCart().addToCart() in Commit 12
-        console.log("Add to cart:", title);
-      }}
-    >
+    <Button size="lg" onClick={handleAdd} className="w-full sm:w-auto">
       <ShoppingCart className="h-4 w-4" />
-      {available ? "Add to Borrow Cart" : "Unavailable"}
+      Add to Borrow Cart
     </Button>
   );
 }

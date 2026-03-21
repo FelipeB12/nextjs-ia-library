@@ -14,7 +14,7 @@
 | 1 | Foundation | 1–4 | ✅ Done |
 | 2 | Authentication | 5–7 | ✅ Done |
 | 3 | Core UI & Books | 8–11 | ✅ Done |
-| 4 | Cart & Ordering | 12–15 | ⬜ Pending |
+| 4 | Cart & Ordering | 12–15 | 🔄 In Progress |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
 | 6 | AI Features | 18–21 | ⬜ Pending |
 | 7 | Polish & Deploy | 22–25 | ⬜ Pending |
@@ -192,13 +192,13 @@
 ## Phase 4 — Cart & Ordering (Commits 12–15)
 
 ### Commit 12 — `feat(cart): implement borrow cart with React Context`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/components/cart/CartProvider.tsx` (add, remove, clear, count)
-2. [ ] Persist cart in `localStorage`
-3. [ ] Cart icon in Navbar with badge count
-4. [ ] Create `src/hooks/useCart.ts`
+1. [x] Create `src/components/cart/CartProvider.tsx` (add, remove, clear, count)
+2. [x] Persist cart in `localStorage`
+3. [x] Cart icon in Navbar with badge count
+4. [x] Create `src/hooks/useCart.ts`
 
 **Files changed**: `CartProvider.tsx`, `useCart.ts`, `Navbar.tsx`
 
