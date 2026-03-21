@@ -205,15 +205,15 @@
 ---
 
 ### Commit 13 — `feat(cart): build cart page with checkout flow`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/cart/page.tsx`
-2. [ ] Create `src/components/cart/CartItem.tsx`
-3. [ ] Create `src/components/cart/CartSummary.tsx`
-4. [ ] Checkout flow: unauthenticated → redirect to login
-5. [ ] Create `POST /api/orders` (creates PENDING orders, validates `copiesAvailable > 0`)
-6. [ ] Clear cart after successful checkout
+1. [x] Create `src/app/cart/page.tsx`
+2. [x] Create `src/components/cart/CartItem.tsx`
+3. [x] Create `src/components/cart/CartSummary.tsx`
+4. [x] Checkout flow: unauthenticated → redirect to login
+5. [x] Create `POST /api/orders` (creates PENDING orders, validates `copiesAvailable > 0`)
+6. [x] Clear cart after successful checkout
 
 **Files changed**: `src/app/cart/page.tsx`, cart components, `src/app/api/orders/route.ts`
 
