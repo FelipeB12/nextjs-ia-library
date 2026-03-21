@@ -11,7 +11,7 @@
 
 | Phase | Name | Commits | Status |
 |-------|------|---------|--------|
-| 1 | Foundation | 1–4 | 🔄 In Progress |
+| 1 | Foundation | 1–4 | ✅ Done |
 | 2 | Authentication | 5–7 | ⬜ Pending |
 | 3 | Core UI & Books | 8–11 | ⬜ Pending |
 | 4 | Cart & Ordering | 12–15 | ⬜ Pending |
@@ -73,15 +73,15 @@
 ---
 
 ### Commit 4 — `feat(db): add seed file with 100 books and default accounts`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `prisma/seed.ts` with:
+1. [x] Create `prisma/seed.ts` with:
   - Admin account: `admin@library.com` / `Admin123!` (bcrypt hashed)
   - Test user: `user@test.com` / `User123!` (bcrypt hashed)
   - 100 diverse books across genres (sci-fi, romance, history, mystery, fantasy, etc.)
-2. [ ] Add `prisma.seed` to `package.json`
-3. [ ] Install `bcryptjs` + `@types/bcryptjs`
+2. [x] Add `prisma.seed` to `package.json`
+3. [x] Install `bcryptjs` + `@types/bcryptjs`
 
 **Verify**: `npx prisma db seed` runs without errors, data visible in DB
 
