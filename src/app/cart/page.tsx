@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import CartItem from "@/components/cart/CartItem";
 import CartSummary from "@/components/cart/CartSummary";
 import { Button } from "@/components/ui/button";
+import Recommendations from "@/components/ai/Recommendations";
 
 /**
  * Borrow cart page.
@@ -26,6 +27,13 @@ export default function CartPage() {
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [showRecs, setShowRecs] = useState(false);
+  const [checkedOutIds, setCheckedOutIds] = useState<string[]>([]);
+
+  function handleDismissRecs() {
+    setShowRecs(false);
+    router.push("/dashboard");
+  }
 
   async function handleCheckout() {
     // Guard: must be logged in
@@ -63,12 +71,14 @@ export default function CartPage() {
       ).length;
 
       if (succeeded > 0) {
+        const orderedIds = items.map((i) => i.bookId);
         clearCart();
         toast({
           title: "Borrow request submitted!",
           description: `${succeeded} book${succeeded > 1 ? "s" : ""} sent for librarian approval.`,
         });
-        router.push("/dashboard");
+        setCheckedOutIds(orderedIds);
+        setShowRecs(true);
       }
     } catch {
       toast({
@@ -96,6 +106,14 @@ export default function CartPage() {
   }
 
   return (
+    <>
+    {showRecs && session?.user?.id && (
+      <Recommendations
+        bookIds={checkedOutIds}
+        userId={session.user.id}
+        onDismiss={handleDismissRecs}
+      />
+    )}
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
@@ -153,5 +171,6 @@ export default function CartPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

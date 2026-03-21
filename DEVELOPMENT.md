@@ -278,7 +278,7 @@
 
 ---
 
-## Phase 6 — AI Features (Commits 18–21)
+## Phase 6 — AI Features (Commits 18–21) ✅ Done
 
 ### Commit 18 — `feat(ai): add API key input in navbar for testing AI features`
 **Status**: ✅ Done
@@ -324,16 +324,16 @@
 ---
 
 ### Commit 21 — `feat(ai): add post-checkout book recommendations`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `POST /api/ai/recommend` — hybrid DB + LLM ranking
+1. [x] Create `POST /api/ai/recommend` — hybrid DB + LLM ranking
   - Extract genres/authors from ordered books
   - DB query: same genre/author, in stock, not already borrowed by user
   - If API key: LLM ranks top 3 from candidates
   - If no key: score by genre match (2pts) + author match (1pt), top 3
-2. [ ] Create `src/components/ai/Recommendations.tsx` — card after successful checkout
-3. [ ] Show recommendations modal in cart page after checkout success
+2. [x] Create `src/components/ai/Recommendations.tsx` — card after successful checkout
+3. [x] Show recommendations modal in cart page after checkout success
 
 **Files changed**: `src/app/api/ai/recommend/route.ts`, `Recommendations.tsx`, `src/app/cart/page.tsx`
 
