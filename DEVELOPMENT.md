@@ -119,7 +119,7 @@
 ---
 
 ### Commit 7 — `feat(auth): add login/register pages and route protection middleware`
-**Status**: ✅ Done
+**Status**: ✅ Done 
 
 **Tasks**:
 1. [x] Create `src/app/(auth)/login/page.tsx`
@@ -136,14 +136,14 @@
 ## Phase 3 — Core UI & Books (Commits 8–11)
 
 ### Commit 8 — `feat(ui): install shadcn/ui and build shared layout components`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Install and configure shadcn/ui (`npx shadcn@latest init`)
-2. [ ] Add shadcn components: button, input, table, dialog, badge, card, toast, skeleton
-3. [ ] Create `src/components/layout/Navbar.tsx` (links, auth status, cart icon)
-4. [ ] Create `src/components/layout/Footer.tsx`
-5. [ ] Update `src/app/layout.tsx` with providers (SessionProvider, CartProvider)
+1. [x] Install and configure shadcn/ui (`npx shadcn@latest init`)
+2. [x] Add shadcn components: button, input, table, dialog, badge, card, toast, skeleton
+3. [x] Create `src/components/layout/Navbar.tsx` (links, auth status, cart icon)
+4. [x] Create `src/components/layout/Footer.tsx`
+5. [x] Update `src/app/layout.tsx` with providers (SessionProvider, CartProvider)
 
 **Files changed**: `components.json`, `src/app/layout.tsx`, navbar, footer, shadcn ui components
 
