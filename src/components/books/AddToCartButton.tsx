@@ -3,6 +3,7 @@
 import { ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
+import { useToast } from "@/hooks/use-toast";
 
 interface AddToCartButtonProps {
   bookId: string;
@@ -25,10 +26,12 @@ export default function AddToCartButton({
   available,
 }: AddToCartButtonProps) {
   const { addToCart, inCart } = useCart();
+  const { toast } = useToast();
   const alreadyInCart = inCart(bookId);
 
   function handleAdd() {
     addToCart({ bookId, title, author, coverUrl });
+    toast({ title: "Added to cart", description: `"${title}" is in your borrow cart.` });
   }
 
   if (!available) {

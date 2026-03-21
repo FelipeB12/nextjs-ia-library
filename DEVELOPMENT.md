@@ -342,15 +342,15 @@
 ## Phase 7 — Polish & Deploy (Commits 22–25)
 
 ### Commit 22 — `style: polish UI — responsive design, loading states, error handling`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Loading skeletons for book grid and tables
-2. [ ] Error boundaries and user-friendly error messages
-3. [ ] Toast notifications (order placed, book added, copy action confirmations)
-4. [ ] Mobile-responsive navigation (hamburger menu)
-5. [ ] Empty states (no search results, empty cart, no orders)
-6. [ ] Overdue badge: highlight orders where `dueDate < now`
+1. [x] Loading skeletons for book grid and tables
+2. [x] Error boundaries and user-friendly error messages
+3. [x] Toast notifications (order placed, book added, copy action confirmations)
+4. [x] Mobile-responsive navigation (hamburger menu)
+5. [x] Empty states (no search results, empty cart, no orders)
+6. [x] Overdue badge: highlight orders where `dueDate < now`
 
 **Files changed**: multiple components + pages
 
