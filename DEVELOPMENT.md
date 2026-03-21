@@ -15,7 +15,7 @@
 | 2 | Authentication | 5–7 | ✅ Done |
 | 3 | Core UI & Books | 8–11 | ✅ Done |
 | 4 | Cart & Ordering | 12–15 | ✅ Done |
-| 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
+| 5 | Admin Book CRUD | 16–17 | 🔄 In Progress |
 | 6 | AI Features | 18–21 | ⬜ Pending |
 | 7 | Polish & Deploy | 22–25 | ⬜ Pending |
 
@@ -252,13 +252,13 @@
 ## Phase 5 — Admin Book CRUD (Commits 16–17)
 
 ### Commit 16 — `feat(admin): build book management table with filters`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/admin/books/page.tsx`
-2. [ ] Table columns: title, author, genre, total copies, available copies
-3. [ ] Filters: title search, genre filter, in-stock toggle
-4. [ ] Sortable columns (title A-Z, author A-Z, availability)
+1. [x] Create `src/app/admin/books/page.tsx`
+2. [x] Table columns: title, author, genre, total copies, available copies
+3. [x] Filters: title search, genre filter, in-stock toggle
+4. [x] Sortable columns (title A-Z, author A-Z, availability)
 
 **Files changed**: `src/app/admin/books/page.tsx`
 
