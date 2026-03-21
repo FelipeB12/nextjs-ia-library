@@ -12,7 +12,7 @@
 | Phase | Name | Commits | Status |
 |-------|------|---------|--------|
 | 1 | Foundation | 1–4 | ✅ Done |
-| 2 | Authentication | 5–7 | 🔄 In Progress |
+| 2 | Authentication | 5–7 | ✅ Done |
 | 3 | Core UI & Books | 8–11 | ⬜ Pending |
 | 4 | Cart & Ordering | 12–15 | ⬜ Pending |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
@@ -105,8 +105,8 @@
 
 ---
 
-### Commit 6 — `feat(auth): add Google OAuth provider for SSO bonus`
-**Status**: ⬜ Pending
+### Commit 6 — `feat(auth): add Google OAuth provider`
+**Status**: ✅ Done
 
 **Tasks**:
 1. [x] Add Google provider to NextAuth config
@@ -119,15 +119,15 @@
 ---
 
 ### Commit 7 — `feat(auth): add login/register pages and route protection middleware`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/(auth)/login/page.tsx`
-2. [ ] Create `src/app/(auth)/register/page.tsx`
-3. [ ] Create `src/app/api/auth/register/route.ts` (POST, creates CUSTOMER user)
-4. [ ] Create `middleware.ts` — protect `/admin` (ADMIN only) and `/dashboard` (logged in)
-5. [ ] Create `src/components/auth/LoginForm.tsx`
-6. [ ] Create `src/components/auth/RegisterForm.tsx`
+1. [x] Create `src/app/(auth)/login/page.tsx`
+2. [x] Create `src/app/(auth)/register/page.tsx`
+3. [x] Create `src/app/api/auth/register/route.ts` (POST, creates CUSTOMER user)
+4. [x] Create `middleware.ts` — protect `/admin` (ADMIN only) and `/dashboard` (logged in)
+5. [x] Create `src/components/auth/LoginForm.tsx`
+6. [x] Create `src/components/auth/RegisterForm.tsx`
 
 **Files changed**: multiple pages, middleware, auth components
 
