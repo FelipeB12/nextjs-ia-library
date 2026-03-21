@@ -13,7 +13,7 @@
 |-------|------|---------|--------|
 | 1 | Foundation | 1–4 | ✅ Done |
 | 2 | Authentication | 5–7 | ✅ Done |
-| 3 | Core UI & Books | 8–11 | ⬜ Pending |
+| 3 | Core UI & Books | 8–11 | 🔄 In Progress |
 | 4 | Cart & Ordering | 12–15 | ⬜ Pending |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
 | 6 | AI Features | 18–21 | ⬜ Pending |
@@ -150,13 +150,13 @@
 ---
 
 ### Commit 9 — `feat(books): build landing page with book grid and hero section`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Create `src/app/page.tsx` — hero banner + featured books grid
-2. [ ] Create `src/components/books/BookCard.tsx` (cover, title, author, genre badge, availability)
-3. [ ] Create `src/components/books/BookGrid.tsx` (responsive grid)
-4. [ ] Create `GET /api/books` route (paginated, returns all books)
+1. [x] Create `src/app/page.tsx` — hero banner + featured books grid
+2. [x] Create `src/components/books/BookCard.tsx` (cover, title, author, genre badge, availability)
+3. [x] Create `src/components/books/BookGrid.tsx` (responsive grid)
+4. [x] Create `GET /api/books` route (paginated, returns all books)
 
 **Files changed**: `src/app/page.tsx`, book components, `src/app/api/books/route.ts`
 
