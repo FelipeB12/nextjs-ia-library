@@ -12,7 +12,7 @@
 | Phase | Name | Commits | Status |
 |-------|------|---------|--------|
 | 1 | Foundation | 1–4 | ✅ Done |
-| 2 | Authentication | 5–7 | ⬜ Pending |
+| 2 | Authentication | 5–7 | 🔄 In Progress |
 | 3 | Core UI & Books | 8–11 | ⬜ Pending |
 | 4 | Cart & Ordering | 12–15 | ⬜ Pending |
 | 5 | Admin Book CRUD | 16–17 | ⬜ Pending |
@@ -92,7 +92,7 @@
 ## Phase 2 — Authentication (Commits 5–7)
 
 ### Commit 5 — `feat(auth): configure NextAuth with Credentials provider`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
 1. [ ] Install `next-auth@beta` (v5 / Auth.js)
