@@ -69,7 +69,7 @@ export default function ApiKeyInput() {
       <Dialog open={open} onOpenChange={(o) => { if (!o) setOpen(false); }}>
         <DialogContent className="max-w-sm">
           <DialogHeader>
-            <DialogTitle>Anthropic API Key</DialogTitle>
+            <DialogTitle>OpenAI API Key</DialogTitle>
           </DialogHeader>
 
           <p className="text-sm text-muted-foreground">
@@ -81,7 +81,7 @@ export default function ApiKeyInput() {
           <div className="relative">
             <Input
               type="password"
-              placeholder="sk-ant-…"
+              placeholder="sk-…"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSave()}

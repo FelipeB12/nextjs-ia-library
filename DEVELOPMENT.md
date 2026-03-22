@@ -387,7 +387,7 @@
 1. [x] `DATABASE_URL` → production DB
 2. [x] `NEXTAUTH_SECRET` → random 32-char string
 3. [x] `NEXTAUTH_URL` → Vercel URL
-4. [x] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
+4. [ ] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
 
 ---
 
@@ -415,7 +415,7 @@ DATABASE_URL="postgresql://admin:password@localhost:5432/library_db"
 NEXTAUTH_SECRET="your-random-32-char-secret"
 NEXTAUTH_URL="http://localhost:3000"  # or Vercel URL in production
 
-# Google OAuth (optional — SSO bonus)
+# Google OAuth (optional)
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 ```
@@ -424,14 +424,14 @@ GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
 ## Key Architectural Decisions
 
-| Decision | Choice | Reason |
-|----------|--------|--------|
-| Cart state | React Context + localStorage | No server round-trip for cart, persists on refresh |
-| AI key storage | sessionStorage | Cleared on tab close — no accidental key leakage |
-| Order approval | Prisma transaction | Atomic: status update + stock decrement can't race |
-| AI fallback | DB-only recommendations | All features work without an API key |
-| `copiesAvailable` timing | Decrement on APPROVE | PENDING doesn't lock stock — reduces false unavailability |
-| Auth session | JWT strategy | Stateless, no extra DB lookups on every request |
+|       Decision           | Choice                       | Reason                                                    |
+|--------------------------|------------------------------|-----------------------------------------------------------|
+| Cart state               | React Context + localStorage | No server round-trip for cart, persists on refresh        |
+| AI key storage           | sessionStorage               | Cleared on tab close — no accidental key leakage          |
+| Order approval           | Prisma transaction           | Atomic: status update + stock decrement can't race        |
+| AI fallback              | DB-only recommendations      | All features work without an API key                      |
+| `copiesAvailable` timing | Decrement on APPROVE         | PENDING doesn't lock stock — reduces false unavailability |
+| Auth session             | JWT strategy                 | Stateless, no extra DB lookups on every request           |
 
 ---
 
@@ -470,4 +470,4 @@ npx prisma studio
 
 ---
 
-*Last updated: 2026-03-20 — Phase 1 starting*
+*Last updated: 2026-03-22*

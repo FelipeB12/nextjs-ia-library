@@ -169,7 +169,7 @@ export default function BookSearch({ initialBooks, totalBooks, genres }: BookSea
         <div className="flex items-start gap-2 rounded-md border border-yellow-200 bg-yellow-50 px-3 py-2 text-sm text-yellow-800 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-300">
           <TriangleAlert className="h-4 w-4 mt-0.5 shrink-0" />
           <span>
-            Set your Anthropic API key using the <strong>AI Key</strong> button in the
+            Set your OpenAI API key using the <strong>AI Key</strong> button in the
             navbar to use natural language search.
           </span>
         </div>

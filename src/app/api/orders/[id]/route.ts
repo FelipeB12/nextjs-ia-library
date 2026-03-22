@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import type { PrismaClient } from "@/generated/prisma/client";
+
+type TxClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends">;
 
 /**
  * PATCH /api/orders/[id]
@@ -57,7 +60,7 @@ export async function PATCH(
  * the availability check and the stock decrement.
  */
 async function approveOrder(orderId: string) {
-  const order = await prisma.$transaction(async (tx: typeof prisma) => {
+  const order = await prisma.$transaction(async (tx: TxClient) => {
     const order = await tx.order.findUnique({
       where: { id: orderId },
       include: { book: true },
@@ -93,7 +96,7 @@ async function approveOrder(orderId: string) {
  * Increments the book's copiesAvailable in the same transaction.
  */
 async function returnOrder(orderId: string) {
-  const order = await prisma.$transaction(async (tx: typeof prisma) => {
+  const order = await prisma.$transaction(async (tx: TxClient) => {
     const order = await tx.order.findUnique({ where: { id: orderId } });
 
     if (!order) throw new Error("Order not found.");

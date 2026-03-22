@@ -3,12 +3,14 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { authConfig } from "@/lib/auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     /**
      * Google OAuth provider — enables SSO login.
-     * Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env.local to activate.
+     * Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env to activate.
      * First-time Google users are automatically created as CUSTOMER role.
      */
     Google({
@@ -55,12 +57,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     /**
      * Populates the JWT token with user id and role.
-     * For Google sign-ins, upserts the user in the database on first login
-     * so they get a persistent id and default CUSTOMER role.
+     * For Google sign-ins, upserts the user in the database on first login.
      */
     async jwt({ token, user, account, profile }) {
       if (account?.provider === "google" && profile?.email) {
-        // Upsert Google user — creates on first login, updates name/image on subsequent ones
         const dbUser = await prisma.user.upsert({
           where: { email: profile.email },
           update: {
@@ -77,14 +77,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = dbUser.id;
         token.role = dbUser.role;
       } else if (user) {
-        // Credentials sign-in — user object comes from authorize()
         token.id = user.id;
         token.role = (user as typeof user & { role: string }).role;
       }
       return token;
     },
 
-    /** Exposes id and role from the JWT token to the client-side session. */
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
@@ -92,13 +90,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-  },
-
-  session: {
-    strategy: "jwt",
-  },
-
-  pages: {
-    signIn: "/login",
   },
 });

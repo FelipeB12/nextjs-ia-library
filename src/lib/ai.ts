@@ -1,12 +1,12 @@
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
 /**
- * Creates an Anthropic client using the provided API key.
+ * Creates an OpenAI client using the provided API key.
  * The key is sent from the client via the `X-API-Key` request header —
  * it is never stored on the server.
  */
-export function createAnthropicClient(apiKey: string): Anthropic {
-  return new Anthropic({ apiKey });
+export function createOpenAIClient(apiKey: string): OpenAI {
+  return new OpenAI({ apiKey });
 }
 
-export const AI_MODEL = "claude-opus-4-6";
+export const AI_MODEL = "gpt-4o-mini";

@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createAnthropicClient, AI_MODEL } from "@/lib/ai";
+import { createOpenAIClient, AI_MODEL } from "@/lib/ai";
 
 /**
  * POST /api/ai/search
  *
- * Natural language book search powered by Claude.
+ * Natural language book search powered by OpenAI.
  * Expects:
- *   - Header `X-API-Key`: user's Anthropic API key (never stored server-side)
+ *   - Header `X-API-Key`: user's OpenAI API key (never stored server-side)
  *   - Body `{ query: string }`: the user's natural language query
  *
  * Sends a compact catalog (id, title, author, genre, summary) to the LLM and
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   const apiKey = req.headers.get("x-api-key")?.trim();
   if (!apiKey) {
     return NextResponse.json(
-      { error: "Missing X-API-Key header. Set your Anthropic API key to use AI search." },
+      { error: "Missing X-API-Key header. Set your OpenAI API key to use AI search." },
       { status: 401 }
     );
   }
@@ -62,16 +62,17 @@ ${catalogText}
 User query: ${query}`;
 
   try {
-    const anthropic = createAnthropicClient(apiKey);
-    const response = await anthropic.messages.create({
+    const openai = createOpenAIClient(apiKey);
+    const response = await openai.chat.completions.create({
       model: AI_MODEL,
       max_tokens: 1024,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userMessage }],
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userMessage },
+      ],
     });
 
-    const textBlock = response.content.find((b) => b.type === "text");
-    const raw = textBlock?.type === "text" ? textBlock.text.trim() : "[]";
+    const raw = response.choices[0]?.message?.content?.trim() ?? "[]";
 
     let matchedIds: string[] = [];
     try {
@@ -80,7 +81,6 @@ User query: ${query}`;
         matchedIds = parsed.filter((id): id is string => typeof id === "string");
       }
     } catch {
-      // If parsing fails, fall back to empty results
       matchedIds = [];
     }
 
@@ -114,10 +114,9 @@ User query: ${query}`;
     return NextResponse.json({ books: ordered });
   } catch (err) {
     const message = err instanceof Error ? err.message : "AI search failed.";
-    // Surface auth errors clearly
-    if (message.includes("401") || message.toLowerCase().includes("api key")) {
+    if (message.includes("401") || message.toLowerCase().includes("api key") || message.toLowerCase().includes("incorrect api key")) {
       return NextResponse.json(
-        { error: "Invalid API key. Please check your Anthropic API key." },
+        { error: "Invalid API key. Please check your OpenAI API key." },
         { status: 401 }
       );
     }

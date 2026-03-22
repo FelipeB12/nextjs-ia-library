@@ -39,6 +39,16 @@ export default async function AdminBooksPage() {
 
   const genres = genreRows.map((r: { genre: string }) => r.genre);
 
+  // Serialize dates to ISO strings for Client Component props
+  const serializedBooks = books.map((b: {
+    id: string; title: string; author: string; genre: string;
+    summary: string | null; isbn: string | null; coverUrl: string | null;
+    publishedDate: Date | null; totalCopies: number; copiesAvailable: number;
+  }) => ({
+    ...b,
+    publishedDate: b.publishedDate ? b.publishedDate.toISOString().split("T")[0] : null,
+  }));
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -52,7 +62,7 @@ export default async function AdminBooksPage() {
         <div id="add-book-action" />
       </div>
 
-      <BookManagementTable books={books} genres={genres} />
+      <BookManagementTable books={serializedBooks} genres={genres} />
     </div>
   );
 }

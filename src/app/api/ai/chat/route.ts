@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server";
 import { streamText, convertToModelMessages } from "ai";
-import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import { prisma } from "@/lib/prisma";
 
 /**
  * POST /api/ai/chat
  *
  * Streaming chat endpoint for book discovery.
- * - Reads `X-API-Key` header for the user's Anthropic key (never stored server-side)
+ * - Reads `X-API-Key` header for the user's OpenAI key (never stored server-side)
  * - Fetches a compact catalog at request time for the system prompt
  * - Streams responses using the Vercel AI SDK UIMessage protocol (compatible with useChat)
  */
@@ -57,10 +57,10 @@ Always mention whether a book is currently available to borrow. Keep responses c
 LIBRARY CATALOG:
 ${catalogText}`;
 
-  const anthropic = createAnthropic({ apiKey });
+  const openai = createOpenAI({ apiKey });
 
   const result = streamText({
-    model: anthropic("claude-opus-4-6"),
+    model: openai("gpt-4o-mini"),
     system: systemPrompt,
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 1024,

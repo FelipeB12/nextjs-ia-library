@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { createAnthropicClient, AI_MODEL } from "@/lib/ai";
+import { createOpenAIClient, AI_MODEL } from "@/lib/ai";
 
 /**
  * POST /api/ai/recommend
@@ -14,7 +14,7 @@ import { createAnthropicClient, AI_MODEL } from "@/lib/ai";
  * 1. Extract genres and authors from the ordered books.
  * 2. DB query: find in-stock books in the same genres/by the same authors
  *    that the user has not already borrowed (active or pending order).
- * 3a. If API key provided: send candidates to Claude, ask for top-3 ranked by relevance.
+ * 3a. If API key provided: send candidates to the LLM, ask for top-3 ranked by relevance.
  * 3b. If no API key: score candidates (genre match = 2 pts, author match = 1 pt), return top 3.
  */
 export async function POST(req: NextRequest) {
@@ -105,16 +105,17 @@ Do not include any explanation or extra text.`;
 Candidate books to choose from:
 ${candidateText}`;
 
-      const anthropic = createAnthropicClient(apiKey);
-      const response = await anthropic.messages.create({
+      const openai = createOpenAIClient(apiKey);
+      const response = await openai.chat.completions.create({
         model: AI_MODEL,
         max_tokens: 256,
-        system: systemPrompt,
-        messages: [{ role: "user", content: userMessage }],
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage },
+        ],
       });
 
-      const textBlock = response.content.find((b) => b.type === "text");
-      const raw = textBlock?.type === "text" ? textBlock.text.trim() : "[]";
+      const raw = response.choices[0]?.message?.content?.trim() ?? "[]";
 
       let rankedIds: string[] = [];
       try {

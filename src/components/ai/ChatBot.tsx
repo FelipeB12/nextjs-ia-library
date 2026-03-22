@@ -19,14 +19,16 @@ interface ChatBotProps {
  * request — it never leaves the browser session.
  */
 export default function ChatBot({ onClose: _onClose }: ChatBotProps) {
-  const { apiKey, isReady } = useApiKey();
+  const { isReady } = useApiKey();
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const { messages, sendMessage, status, error } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/ai/chat",
-      headers: { "X-API-Key": apiKey },
+      headers: () => ({
+        "X-API-Key": sessionStorage.getItem("library_ai_api_key") ?? "",
+      }),
     }),
   });
 
@@ -138,7 +140,7 @@ export default function ChatBot({ onClose: _onClose }: ChatBotProps) {
         {error && (
           <p className="text-xs text-destructive text-center px-4 py-2 bg-destructive/10 rounded-md">
             {error.message.includes("401") || error.message.toLowerCase().includes("api key")
-              ? "Invalid API key. Please check your Anthropic API key in the navbar."
+              ? "Invalid API key. Please check your OpenAI API key in the navbar."
               : error.message || "Something went wrong. Please try again."}
           </p>
         )}
