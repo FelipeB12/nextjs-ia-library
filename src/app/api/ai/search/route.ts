@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
   }
 
   const catalogText = catalog
-    .map((b) => {
+    .map((b: { id: string; title: string; author: string; genre: string; summary: string | null }) => {
       const summary = b.summary ? ` — ${b.summary.slice(0, 120)}` : "";
       return `${b.id} | ${b.title} by ${b.author} [${b.genre}]${summary}`;
     })
@@ -105,7 +105,7 @@ User query: ${query}`;
     });
 
     // Preserve the relevance order returned by the LLM
-    const bookMap = new Map(books.map((b) => [b.id, b]));
+    const bookMap = new Map(books.map((b: { id: string }) => [b.id, b]));
     const ordered = matchedIds.flatMap((id) => {
       const book = bookMap.get(id);
       return book ? [book] : [];

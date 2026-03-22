@@ -38,8 +38,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ recommendations: [] });
   }
 
-  const genres = [...new Set(orderedBooks.map((b) => b.genre))];
-  const authors = [...new Set(orderedBooks.map((b) => b.author))];
+  const genres = [...new Set(orderedBooks.map((b: { genre: string }) => b.genre))];
+  const authors = [...new Set(orderedBooks.map((b: { author: string }) => b.author))];
 
   // 2. Find books the user already has an active/pending borrow for
   const existingOrders = await prisma.order.findMany({
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     select: { bookId: true },
   });
   const alreadyBorrowedIds = new Set([
-    ...existingOrders.map((o) => o.bookId),
+    ...existingOrders.map((o: { bookId: string }) => o.bookId),
     ...bookIds, // also exclude the books they just ordered
   ]);
 
@@ -85,11 +85,11 @@ export async function POST(req: NextRequest) {
   if (apiKey) {
     try {
       const orderedSummary = orderedBooks
-        .map((b) => `"${b.title}" by ${b.author} [${b.genre}]`)
+        .map((b: { title: string; author: string; genre: string }) => `"${b.title}" by ${b.author} [${b.genre}]`)
         .join(", ");
 
       const candidateText = candidates
-        .map((b) => {
+        .map((b: { id: string; title: string; author: string; genre: string; summary: string | null }) => {
           const summary = b.summary ? ` — ${b.summary.slice(0, 100)}` : "";
           return `${b.id} | "${b.title}" by ${b.author} [${b.genre}]${summary}`;
         })
@@ -129,7 +129,7 @@ ${candidateText}`;
       }
 
       if (rankedIds.length > 0) {
-        const bookMap = new Map(candidates.map((b) => [b.id, b]));
+        const bookMap = new Map(candidates.map((b: { id: string }) => [b.id, b]));
         const recommendations = rankedIds.flatMap((id) => {
           const book = bookMap.get(id);
           return book ? [book] : [];
@@ -146,11 +146,11 @@ ${candidateText}`;
   const authorSet = new Set(authors);
 
   const scored = candidates
-    .map((b) => ({
+    .map((b: { genre: string; author: string }) => ({
       ...b,
       score: (genreSet.has(b.genre) ? 2 : 0) + (authorSet.has(b.author) ? 1 : 0),
     }))
-    .sort((a, b) => b.score - a.score)
+    .sort((a: { score: number }, b: { score: number }) => b.score - a.score)
     .slice(0, 3);
 
   return NextResponse.json({ recommendations: scored });

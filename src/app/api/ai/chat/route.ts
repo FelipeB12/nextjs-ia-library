@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
   });
 
   const catalogText = catalog
-    .map((b) => {
+    .map((b: { title: string; author: string; genre: string; summary: string | null; copiesAvailable: number }) => {
       const avail = b.copiesAvailable > 0 ? "✓ available" : "✗ out of stock";
       const summary = b.summary ? ` — ${b.summary.slice(0, 100)}` : "";
       return `• ${b.title} by ${b.author} [${b.genre}] (${avail})${summary}`;
@@ -62,8 +62,8 @@ ${catalogText}`;
   const result = streamText({
     model: anthropic("claude-opus-4-6"),
     system: systemPrompt,
-    messages: convertToModelMessages(messages),
-    maxTokens: 1024,
+    messages: await convertToModelMessages(messages),
+    maxOutputTokens: 1024,
   });
 
   return result.toUIMessageStreamResponse();

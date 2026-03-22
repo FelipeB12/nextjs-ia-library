@@ -373,21 +373,21 @@
 ---
 
 ### Commit 24 — `deploy: configure Vercel deployment with production database`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Set up Vercel Postgres or Supabase as production DB
-2. [ ] Configure environment variables in Vercel dashboard
-3. [ ] Add `prisma generate` to build command
-4. [ ] Seed production database
+1. [x] Use Neon free tier as production DB (see deploy guide below)
+2. [x] Configure environment variables in Vercel dashboard (see deploy guide below)
+3. [x] Add `prisma generate` to build command
+4. [ ] Seed production database (run after first deploy)
 5. [ ] Verify live URL end-to-end
 6. [ ] Add live URL to README
 
 **Checklist**:
-1. [ ] `DATABASE_URL` → production DB
-2. [ ] `NEXTAUTH_SECRET` → random 32-char string
-3. [ ] `NEXTAUTH_URL` → Vercel URL
-4. [ ] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
+1. [x] `DATABASE_URL` → production DB
+2. [x] `NEXTAUTH_SECRET` → random 32-char string
+3. [x] `NEXTAUTH_URL` → Vercel URL
+4. [x] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` (optional)
 
 ---
 

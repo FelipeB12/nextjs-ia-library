@@ -188,7 +188,7 @@ export default function BookSearch({ initialBooks, totalBooks, genres }: BookSea
             type="search"
             placeholder={
               aiMode
-                ? "Describe what you're looking for… (e.g. "dystopian novels about AI")"
+                ? "Describe what you're looking for… (e.g. 'dystopian novels about AI')"
                 : "Search by title, author, or keyword…"
             }
             value={query}
