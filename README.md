@@ -1,6 +1,6 @@
 # Mini Library Management System
 
-A full-stack library platform where users can browse, search, and borrow books — with AI-powered discovery built on Claude.
+A full-stack library platform where users can browse, search, and borrow books — with AI-powered discovery built on OpenAI.
 
 **Live demo:** _coming soon_
 
@@ -11,7 +11,7 @@ A full-stack library platform where users can browse, search, and borrow books �
 - **Book catalog** — Browse 100+ books with cover images, genre filters, and keyword search
 - **Borrow system** — Cart → checkout → librarian approval → return tracking
 - **Admin panel** — Full CRUD for books and order management (approve / reject / return)
-- **AI search** — Natural language book search powered by Claude (`claude-opus-4-6`)
+- **AI search** — Natural language book search powered by OpenAI (`gpt-4o-mini`)
 - **AI chatbot** — Slide-out book discovery assistant with real-time streaming
 - **Recommendations** — Post-checkout suggestions via hybrid DB + LLM ranking
 - **Auth** — Email/password + Google OAuth via Auth.js v5
@@ -29,8 +29,8 @@ A full-stack library platform where users can browse, search, and borrow books �
 | Auth | Auth.js v5 (NextAuth) | JWT sessions, Credentials + Google OAuth out of the box |
 | Styling | Tailwind CSS v4 | Utility-first, no config file needed in v4 |
 | UI Components | shadcn/ui + Radix UI | Accessible unstyled primitives, copy-owned components |
-| AI SDK | Vercel AI SDK v6 + `@ai-sdk/anthropic` | Streaming chat with `useChat` hook, transport layer |
-| Claude client | `@anthropic-ai/sdk` 0.80 | Direct API calls for search and recommendations |
+| AI SDK | Vercel AI SDK v6 + `@ai-sdk/openai` | Streaming chat with `useChat` hook, transport layer |
+| OpenAI client | `openai` SDK | Direct API calls for search and recommendations |
 | Cart state | React Context + localStorage | Persists across page navigations without a server round-trip |
 
 ---
@@ -52,8 +52,8 @@ A full-stack library platform where users can browse, search, and borrow books �
                │                      │
                ▼                      ▼
         ┌─────────────┐       ┌──────────────────┐
-        │  PostgreSQL │       │  Anthropic API   │
-        │  (Prisma)   │       │  claude-opus-4-6 │
+        │  PostgreSQL │       │  OpenAI API      │
+        │  (Prisma)   │       │  gpt-4o-mini     │
         └─────────────┘       └──────────────────┘
 
 Database models:
@@ -63,7 +63,7 @@ Database models:
                          ↘ REJECTED
 
 AI request flow (all three endpoints):
-  Browser → X-API-Key header → Next.js route → Anthropic API
+  Browser → X-API-Key header → Next.js route → OpenAI API
   (key never stored server-side — lives in sessionStorage only)
 ```
 
@@ -75,7 +75,7 @@ AI request flow (all three endpoints):
 
 - Node.js 20+
 - Docker (for PostgreSQL)
-- Anthropic API key — optional, only needed for AI features
+- OpenAI API key — optional, only needed for AI features
 
 ### 1. Clone and install
 
@@ -152,7 +152,7 @@ Your API key is stored only in **sessionStorage** — it is never saved to the d
 ### Setting your API key
 
 1. Open the app → click the **AI Key** button in the top-right navbar
-2. Paste your Anthropic key (starts with `sk-ant-…`) and click **Save**
+2. Paste your OpenAI key (starts with `sk-…`) and click **Save**
 3. The button turns green with an **AI Ready** dot
 
 ### What to test
@@ -161,7 +161,7 @@ Your API key is stored only in **sessionStorage** — it is never saved to the d
 |---------|-----|
 | **AI Search** | Home page → click **AI Search** pill → type e.g. _"dystopian novels about society"_ |
 | **Book chatbot** | Click the **chat bubble** (💬) in the navbar → ask for recommendations |
-| **Recommendations** | Add books to cart → check out → Claude suggests related titles |
+| **Recommendations** | Add books to cart → check out → AI suggests related titles |
 
 > **Without an API key:** AI Search and the chatbot are disabled. Post-checkout recommendations fall back to a score-based algorithm (genre match = 2 pts, author match = 1 pt, top 3).
 
@@ -233,7 +233,7 @@ src/
 │   ├── useCart.ts             # Cart context consumer
 │   └── use-toast.ts           # Toast notifications
 └── lib/
-    ├── ai.ts                  # Anthropic client factory
+    ├── ai.ts                  # OpenAI client factory
     ├── auth.ts                # Auth.js config (JWT + callbacks)
     └── prisma.ts              # Prisma client singleton
 ```

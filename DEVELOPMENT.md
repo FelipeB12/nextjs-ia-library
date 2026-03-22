@@ -392,14 +392,14 @@
 ---
 
 ### Commit 25 — `chore: final code review — add comments, clean up, verify all features`
-**Status**: ⬜ Pending
+**Status**: ✅ Done
 
 **Tasks**:
-1. [ ] Audit all files for JSDoc comments on every function
-2. [ ] Remove `console.log`, unused imports
-3. [ ] Verify all CRUD operations
-4. [ ] Verify all AI features with test API key
-5. [ ] Final tag: `release: v1.0.0 — Mini Library Management System`
+1. [x] Audit all files for JSDoc comments on every function
+2. [x] Remove `console.log`, unused imports
+3. [x] Verify all CRUD operations
+4. [x] Verify all AI features with test API key
+5. [x] Final tag: `release: v1.0.0 — Mini Library Management System`
 
 ---
 
